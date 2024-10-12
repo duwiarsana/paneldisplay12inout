@@ -1,0 +1,326 @@
+#include <SimpleTimer.h>
+SimpleTimer timer;
+
+int satu = 2;
+int dua = 3;
+int tiga = 4;
+int empat = 5;
+int lima = 6;
+int enam = 7;
+int tujuh = 8;
+int delapan = 9;
+int sembilan = 10;
+int sepuluh = 11;
+int sebelas = 12;
+int duabelas = 14;
+int relay = 15;
+
+int csatu = 0;
+int cdua = 0;
+int ctiga = 0;
+int cempat = 0;
+int clima = 0;
+int cenam = 0;
+int ctujuh = 0;
+int cdelapan = 0;
+int csembilan = 0;
+int csepuluh = 0;
+int csebelas = 0;
+int cduabelas = 0;
+
+boolean idle1 = false;
+boolean idle2 = false;
+boolean idle3 = false;
+boolean idle4 = false;
+boolean idle5 = false;
+boolean idle6 = false;
+boolean idle7 = false;
+boolean idle8 = false;
+boolean idle9 = false;
+boolean idle10 = false;
+boolean idle11 = false;
+boolean idle12 = false;
+
+int relayCountdown = 0;  // Countdown untuk relay
+
+void setup() {
+  Serial.begin(9600);
+  
+  pinMode(satu, INPUT);
+  pinMode(dua, INPUT);
+  pinMode(tiga, INPUT);
+  pinMode(empat, INPUT);
+  pinMode(lima, INPUT);
+  pinMode(enam, INPUT);
+  pinMode(tujuh, INPUT);
+  pinMode(delapan, INPUT);
+  pinMode(sembilan, INPUT);
+  pinMode(sepuluh, INPUT);
+  pinMode(sebelas, INPUT);
+  pinMode(duabelas, INPUT);
+  
+  pinMode(relay, OUTPUT);
+  digitalWrite(relay, HIGH);  // Relay off (karena active low)
+  
+  timer.setInterval(1000, myTask);
+}
+
+void loop() {
+  timer.run();
+  
+  boolean a = digitalRead(satu);
+  boolean b = digitalRead(dua);
+  boolean c = digitalRead(tiga);
+  boolean d = digitalRead(empat);
+  boolean e = digitalRead(lima);
+  boolean f = digitalRead(enam);
+  boolean g = digitalRead(tujuh);
+  boolean h = digitalRead(delapan);
+  boolean i = digitalRead(sembilan);
+  boolean j = digitalRead(sepuluh);
+  boolean k = digitalRead(sebelas);
+  boolean l = digitalRead(duabelas);
+  
+  // Tombol 1
+  if (!idle1) {
+    if (!a) {
+      pinMode(satu, OUTPUT);
+      digitalWrite(satu, LOW);
+      csatu = 5;
+      idle1 = true;
+      activateRelay();  // Aktifkan relay ketika tombol ditekan
+    }
+  }
+
+  // Tombol 2
+  if (!idle2) {
+    if (!b) {
+      pinMode(dua, OUTPUT);
+      digitalWrite(dua, LOW);
+      cdua = 5;
+      idle2 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 3
+  if (!idle3) {
+    if (!c) {
+      pinMode(tiga, OUTPUT);
+      digitalWrite(tiga, LOW);
+      ctiga = 5;
+      idle3 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 4
+  if (!idle4) {
+    if (!d) {
+      pinMode(empat, OUTPUT);
+      digitalWrite(empat, LOW);
+      cempat = 5;
+      idle4 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 5
+  if (!idle5) {
+    if (!e) {
+      pinMode(lima, OUTPUT);
+      digitalWrite(lima, LOW);
+      clima = 5;
+      idle5 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 6
+  if (!idle6) {
+    if (!f) {
+      pinMode(enam, OUTPUT);
+      digitalWrite(enam, LOW);
+      cenam = 5;
+      idle6 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 7
+  if (!idle7) {
+    if (!g) {
+      pinMode(tujuh, OUTPUT);
+      digitalWrite(tujuh, LOW);
+      ctujuh = 5;
+      idle7 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 8
+  if (!idle8) {
+    if (!h) {
+      pinMode(delapan, OUTPUT);
+      digitalWrite(delapan, LOW);
+      cdelapan = 5;
+      idle8 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 9
+  if (!idle9) {
+    if (!i) {
+      pinMode(sembilan, OUTPUT);
+      digitalWrite(sembilan, LOW);
+      csembilan = 5;
+      idle9 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 10
+  if (!idle10) {
+    if (!j) {
+      pinMode(sepuluh, OUTPUT);
+      digitalWrite(sepuluh, LOW);
+      csepuluh = 5;
+      idle10 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 11
+  if (!idle11) {
+    if (!k) {
+      pinMode(sebelas, OUTPUT);
+      digitalWrite(sebelas, LOW);
+      csebelas = 5;
+      idle11 = true;
+      activateRelay();
+    }
+  }
+
+  // Tombol 12
+  if (!idle12) {
+    if (!l) {
+      pinMode(duabelas, OUTPUT);
+      digitalWrite(duabelas, LOW);
+      cduabelas = 5;
+      idle12 = true;
+      activateRelay();
+    }
+  }
+}
+
+void myTask() {
+  if (csatu > 0) {
+    csatu--;
+    Serial.println("Tombol 1 countdown: " + String(csatu));
+  } else {
+    idle1 = false;
+    pinMode(satu, INPUT);
+  }
+
+  if (cdua > 0) {
+    cdua--;
+    Serial.println("Tombol 2 countdown: " + String(cdua));
+  } else {
+    idle2 = false;
+    pinMode(dua, INPUT);
+  }
+
+  if (ctiga > 0) {
+    ctiga--;
+    Serial.println("Tombol 3 countdown: " + String(ctiga));
+  } else {
+    idle3 = false;
+    pinMode(tiga, INPUT);
+  }
+
+  if (cempat > 0) {
+    cempat--;
+    Serial.println("Tombol 4 countdown: " + String(cempat));
+  } else {
+    idle4 = false;
+    pinMode(empat, INPUT);
+  }
+
+  if (clima > 0) {
+    clima--;
+    Serial.println("Tombol 5 countdown: " + String(clima));
+  } else {
+    idle5 = false;
+    pinMode(lima, INPUT);
+  }
+
+  if (cenam > 0) {
+    cenam--;
+    Serial.println("Tombol 6 countdown: " + String(cenam));
+  } else {
+    idle6 = false;
+    pinMode(enam, INPUT);
+  }
+
+  if (ctujuh > 0) {
+    ctujuh--;
+    Serial.println("Tombol 7 countdown: " + String(ctujuh));
+  } else {
+    idle7 = false;
+    pinMode(tujuh, INPUT);
+  }
+
+  if (cdelapan > 0) {
+    cdelapan--;
+    Serial.println("Tombol 8 countdown: " + String(cdelapan));
+  } else {
+    idle8 = false;
+    pinMode(delapan, INPUT);
+  }
+
+  if (csembilan > 0) {
+    csembilan--;
+    Serial.println("Tombol 9 countdown: " + String(csembilan));
+  } else {
+    idle9 = false;
+    pinMode(sembilan, INPUT);
+  }
+
+  if (csepuluh > 0) {
+    csepuluh--;
+    Serial.println("Tombol 10 countdown: " + String(csepuluh));
+  } else {
+    idle10 = false;
+    pinMode(sepuluh, INPUT);
+  }
+
+  if (csebelas > 0) {
+    csebelas--;
+    Serial.println("Tombol 11 countdown: " + String(csebelas));
+  } else {
+    idle11 = false;
+    pinMode(sebelas, INPUT);
+  }
+
+  if (cduabelas > 0) {
+    cduabelas--;
+    Serial.println("Tombol 12 countdown: " + String(cduabelas));
+  } else {
+    idle12 = false;
+    pinMode(duabelas, INPUT);
+  }
+
+  // Relay countdown
+  if (relayCountdown > 0) {
+    relayCountdown--;
+  } else {
+    digitalWrite(relay, HIGH);  // Relay off setelah 1 detik (karena active low)
+  }
+}
+
+// Fungsi untuk mengaktifkan relay selama 1 detik
+void activateRelay() {
+  digitalWrite(relay, LOW);  // Relay on (active low)
+  relayCountdown = 1;  // Set countdown relay ke 1 detik
+}
